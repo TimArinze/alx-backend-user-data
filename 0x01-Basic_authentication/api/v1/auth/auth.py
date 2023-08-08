@@ -33,13 +33,6 @@ class Auth:
 
         if not path.endswith("/"):
             path = path + "/"
-        
-        new_excluded_paths = []
-        for excluded_path in excluded_paths:
-            if not excluded_path.endswith("/"):
-                excluded_path = excluded_path + "/"
-            new_excluded_paths.append(excluded_path)
-        excluded_paths = new_excluded_paths
 
         if path in excluded_paths:
             return False
