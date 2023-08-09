@@ -39,6 +39,7 @@ def forbidden(error) -> str:
     """
     return jsonify({"error": "Forbidden"}), 403
 
+
 @app.before_request
 def before_request():
     """this method will be executed before request to a route"""
