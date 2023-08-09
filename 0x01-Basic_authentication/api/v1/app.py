@@ -39,6 +39,7 @@ def forbidden(error) -> str:
     """
     return jsonify({"error": "Forbidden"}), 403
 
+
 @app.before_request
 def before_request():
     """this method will be executed before request to a route"""
@@ -47,17 +48,14 @@ def before_request():
     excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/',
                       '/api/v1/forbidden/']
     path = request.path
-    a = Auth()
-    if a.require_auth(path, excluded_paths) == True:
-        pass
+    if auth.require_auth(path, excluded_paths):
+        header = auth.authorization_header(request)
+        if header is None:
+            abort(401)
 
-    header = auth.authorization_header(request)
-    if header is None:
-        abort(401)
-
-    current_user = auth.current_user(request)
-    if current_user is None:
-        abort(403)
+        current_user = auth.current_user(request)
+        if current_user is None:
+            abort(403)
 
 
 if __name__ == "__main__":
