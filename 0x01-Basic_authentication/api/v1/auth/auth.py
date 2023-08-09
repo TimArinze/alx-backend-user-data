@@ -9,22 +9,8 @@ from typing import List, TypeVar
 class Auth:
     """Authentication class"""
 
-    def authorization_header(self, request=None) -> str:
-        """Authorization header"""
-        if request:
-            return None
-        if request.headers.get('Authorization'):
-            return request.headers.get('Authorization')
-        else:
-            return None
-
-    def current_user(self, request=None) -> TypeVar('User'):
-        """Current User"""
-        if request is None:
-            return None
-
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """Defines which routes don't need authentication"""
+        """Require authentication"""
         if path is None:
             return True
         if excluded_paths is None or len(excluded_paths) == 0:
@@ -37,3 +23,17 @@ class Auth:
             return False
         else:
             return True
+
+    def authorization_header(self, request=None) -> str:
+        """Authorization header"""
+        if request is None:
+            return None
+        if "Authorization" not in request.headers.keys():
+            return None
+        else:
+            return request.headers.get("Authorization")
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Current User"""
+        if request is None:
+            return None
