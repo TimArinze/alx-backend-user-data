@@ -41,7 +41,7 @@ def forbidden(error) -> str:
 
 
 @app.before_request
-def before_request():
+def before_request() -> str:
     """this method will be executed before request to a route"""
     if auth is None:
         return
