@@ -71,4 +71,5 @@ class BasicAuth(Auth):
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
+        """Overload Auth and retrieves the User instance for a request"""
         return super().current_user(request)
