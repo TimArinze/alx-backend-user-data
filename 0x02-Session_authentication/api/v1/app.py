@@ -46,18 +46,21 @@ def forbidden(error) -> str:
 
 
 @app.before_request
-def before_request() -> str:
+def require_auth() -> str:
     """this method will be executed before request to a route"""
     if auth is None:
         return
     excluded_paths = ['/api/v1/status/',
                       '/api/v1/unauthorized/',
-                      '/api/v1/forbidden/']
+                      '/api/v1/forbidden/',
+                      '/api/v1/auth_session/login/']
     if auth.require_auth(request.path, excluded_paths):
         if auth.authorization_header(request) is None:
             abort(401)
         if auth.current_user(request) is None:
             abort(403)
+        if auth.session_cookie(request) is None:
+            abort(401)
     request.current_user = auth.current_user(request)
 
 
