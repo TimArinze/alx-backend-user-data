@@ -8,7 +8,6 @@ from typing import TypeVar
 from models.user import User
 
 
-
 class SessionAuth(Auth):
     """Session Auth Class"""
     user_id_by_session_id = {}
