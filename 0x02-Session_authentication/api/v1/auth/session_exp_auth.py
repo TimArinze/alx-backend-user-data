@@ -19,7 +19,7 @@ class SessionExpAuth(SessionAuth):
     def create_session(self, user_id: str = None) -> str:
         """create session"""
         try:
-            session_id =  super().create_session(user_id)
+            session_id = super().create_session(user_id)
         except Exception:
             return None
         session_dictionary = {
@@ -28,7 +28,7 @@ class SessionExpAuth(SessionAuth):
         }
         self.user_id_by_session_id[session_id] = session_dictionary
         return session_id
-    
+
     def user_id_for_session_id(self, session_id: str = None) -> str:
         """user id for session id"""
         if not session_id:
@@ -43,7 +43,7 @@ class SessionExpAuth(SessionAuth):
             return self.user_id_by_session_id[session_id].get("user_id")
         if not self.user_id_by_session_id[session_id].get("created_at"):
             return None
-        duration = timedelta(seconds= self.session_duration)
+        duration = timedelta(seconds=self.session_duration)
         created_at = self.user_id_by_session_id[session_id].get("created_at")
         date_difference = (created_at + duration) - datetime.now
 
