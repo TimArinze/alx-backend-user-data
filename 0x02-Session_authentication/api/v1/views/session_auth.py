@@ -3,7 +3,7 @@
 New view for Session Authentication
 """
 from api.v1.views import app_views
-from flask import jsonify, request
+from flask import jsonify, request, abort
 from models.user import User
 import os
 
@@ -31,3 +31,14 @@ def login() -> str:
         response = jsonify(user.to_json())
         response.set_cookie(os.getenv("SESSION_NAME"), session_id)
         return response
+
+
+@app_views.route('/auth_session/logout', methods=['DELETE'],
+                 strict_slashes=False)
+def logout() -> str:
+    """deletes the session id"""
+    from api.v1.app import auth
+    if auth.destroy_session(request) is False:
+        return False, abort(404)
+    else:
+        return jsonify({}), 200
