@@ -50,6 +50,10 @@ class DB:
             raise NoResultFound
 
     def update_user(self, user_id: int, **kwargs) -> None:
+        if not user_id:
+            raise NoResultFound
+        if not kwargs:
+            return
         user = self.find_user_by(id=user_id)
         key, value = kwargs.popitem()
 
