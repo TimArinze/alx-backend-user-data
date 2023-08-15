@@ -45,15 +45,12 @@ class DB:
             raise InvalidRequestError
         column = getattr(User, key)
         try:
-            return self.__session.query(User).filter(column == value).one()
+            return self.__session.query(User).filter(column== value).one()
         except NoResultFound:
             raise NoResultFound
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        if not user_id:
-            raise NoResultFound
-        if not kwargs:
-            return
+        """Update user"""
         user = self.find_user_by(id=user_id)
         key, value = kwargs.popitem()
 
