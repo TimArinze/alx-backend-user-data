@@ -13,6 +13,9 @@ def _hash_password(password: str) -> bytes:
     return bcrypt.hashpw(password.encode('utf-8'), salt)
 
 
+"""Register user"""
+
+
 class Auth:
     """Auth class to interact with the authentication database"""
 
@@ -23,7 +26,8 @@ class Auth:
     def register_user(self, email: str, password: str) -> User:
         """Register User"""
         try:
-            self._db.find_user_by(email=email)
-            raise ValueError("User {} already exists".format(email))
+            user = self._db.find_user_by(email=email)
+            if user:
+                raise ValueError("User {} already exists".format(email))
         except NoResultFound:
             return Auth._db.add_user(email, _hash_password(password))
