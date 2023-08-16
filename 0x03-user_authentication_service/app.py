@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Basic Flask App"""
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, url_for, redirect
 from auth import Auth
 
 
@@ -43,7 +43,7 @@ def login():
         abort(401)
 
 
-@app.route("/sessions", methods=["DELETE", "GET"], strict_slashes=False)
+@app.route("/sessions", methods=["DELETE"], strict_slashes=False)
 def logout():
     """Log out"""
     session_id = request.cookies.get("session_id")
