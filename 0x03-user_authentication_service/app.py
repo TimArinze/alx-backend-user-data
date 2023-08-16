@@ -70,7 +70,6 @@ def user_profile():
 def reset_password():
     """Get reset password token"""
     email = request.form["email"]
-    user = AUTH.find_user_by(email=email)
     reset_token = AUTH.get_reset_password_token(email)
     if user:
         return jsonify({"email": email, "reset_token": reset_token}), 200
