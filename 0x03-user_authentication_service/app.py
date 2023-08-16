@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Basic Flask App"""
-from flask import Flask, jsonify, request, abort, url_for, redirect
+from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 
 
@@ -9,13 +9,13 @@ AUTH = Auth()
 
 
 @app.route("/", strict_slashes=False)
-def basic():
+def basic() -> str:
     """Basic flask app"""
     return jsonify({"message": "Bienvenue"}), 200
 
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
-def register_user():
+def register_user() -> str:
     """Register User"""
     data = request.form
     email = data["email"]
