@@ -9,13 +9,13 @@ AUTH = Auth()
 
 
 @app.route("/", strict_slashes=False)
-def basic() -> str:
+def basic():
     """Basic flask app"""
     return jsonify({"message": "Bienvenue"}), 200
 
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
-def register_user() -> str:
+def register_user():
     """Register User"""
     data = request.form
     email = data["email"]
@@ -29,7 +29,7 @@ def register_user() -> str:
 
 
 @app.route("/sessions", methods=["POST"], strict_slashes=False)
-def login() -> str:
+def login():
     """Log in"""
     data = request.form
     email = data["email"]
@@ -44,7 +44,7 @@ def login() -> str:
 
 
 @app.route("/sessions", methods=['DELETE'], strict_slashes=False)
-def logout() -> str:
+def logout():
     """Log out"""
     session_id = request.cookies.get("session_id")
     user = AUTH.get_user_from_session_id(session_id)
