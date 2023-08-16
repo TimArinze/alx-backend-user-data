@@ -74,7 +74,7 @@ def reset_password():
     if reset_token:
         return jsonify({"email": email, "reset_token": reset_token}), 200
     else:
-        abort(403)
+        return "", 403
 
 
 if __name__ == "__main__":
