@@ -57,3 +57,4 @@ class DB:
         if not hasattr(user, key):
             raise ValueError
         setattr(user, key, value)
+        self._session.commit()
