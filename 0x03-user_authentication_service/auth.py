@@ -70,7 +70,6 @@ class Auth:
         """Destroy session"""
         try:
             self._db.update_user(user_id, session_id=None)
-            self._db._session.pop(user_id, None)
             return None
         except ValueError:
             return None
