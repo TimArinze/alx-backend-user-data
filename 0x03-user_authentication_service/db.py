@@ -45,7 +45,7 @@ class DB:
             raise InvalidRequestError
         column = getattr(User, key)
         try:
-            return self._session.query(User).filter(column == value).one()
+            return self.__session.query(User).filter(column == value).one()
         except NoResultFound:
             raise NoResultFound
 
