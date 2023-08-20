@@ -88,8 +88,11 @@ def update_password():
     email = data["email"]
     new_password = data["new_password"]
     reset_token = data["reset_token"]
+
     try:
-        AUTH.update_password(reset_token, new_password)
+        update = AUTH.update_password(reset_token, new_password)
+        if update is None:
+            abort(403)
         return jsonify({"email": email, "message": "Password updated"}), 200
     except ValueError:
         abort(403)
